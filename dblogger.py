@@ -16,16 +16,17 @@ def dht11():
         humidity, temperature = Adafruit_DHT.read_retry(11, 14)
         print("temperature=%f humidity=%f"%(temperature,humidity)) 
         query="insert into "+table+" values('"+str(x)+"','"+str(temperature)+"','"+str(humidity)+"')"
-        cursor.execute(query)
+        results = cursor.execute(query)
+        db.commit()
         sleep(1)
         count=count+1
 
 def createtable():
     cursor.execute("drop table if exists "+table)
-    sql="create table " +table+ "(DateTime varchar(15),temperature varchar(5),humidity varchar(5))"
+    sql="create table " +table+ "(DateTime varchar(15),temperature varchar(15),humidity varchar(15))"
     cursor.execute(sql)
     dht11()
 
 createtable()
-db.close()
+cursor.close()
 
