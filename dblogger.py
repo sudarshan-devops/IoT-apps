@@ -15,7 +15,7 @@ def dht11():
         x = datetime.datetime.now().time()
         humidity, temperature = Adafruit_DHT.read_retry(11, 14)
         print("temperature=%f humidity=%f"%(temperature,humidity)) 
-        query="insert into "+table+" values("+str(x)+","+str(temperature)+","+str(humidity)+")"
+        query="insert into "+table+" values('"+str(x)+"','"+str(temperature)+"','"+str(humidity)+"')"
         cursor.execute(query)
         sleep(1)
         count=count+1
